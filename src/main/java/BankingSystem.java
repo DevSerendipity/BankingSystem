@@ -1,23 +1,25 @@
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class BankingSystem {
     private final Scanner input = new Scanner(System.in);
     private final String userInput = input.nextLine();
     private final ArrayList<Customer> customers = new ArrayList<>();
 
-    public ArrayList<Customer> getCustomers() {
-        return customers;
+    public List<Customer> getCustomers() {
+        return Collections.unmodifiableList(customers);
+    }
+
+    public void add(Customer customer){
+        customers.add(customer);
     }
 
     void getBankDetails() {
-        boolean haveCustomer = false;
+        boolean hasCustomer = false;
         for (Customer customer : customers) {
-            haveCustomer = isCustomerPresent(haveCustomer, customer);
+            hasCustomer = isCustomerPresent(hasCustomer, customer);
         }
-        if(!haveCustomer){
+        if(!hasCustomer){
             System.out.println("We don't have a customer with that name");
         }
     }
@@ -25,7 +27,7 @@ public class BankingSystem {
     private boolean isCustomerPresent(boolean haveCustomer, Customer value) {
         if (value.getName().equals(userInput)) {
             haveCustomer = true;
-            bankActions(value);
+            atmActions(value);
             customerDetails(value);
         }
         return haveCustomer;
@@ -35,17 +37,21 @@ public class BankingSystem {
         System.out.println("Name : " + value.getName() + "\nBalance " + value.getBalance() + "$\nAccountID" +  new BigInteger(53, new Random()));
     }
 
-    void bankActions(Customer customer) {
+    void atmActions(Customer customer) {
         System.out.println("Hello " + customer.getName() + customerMessage());
         int atm = input.nextInt();
         while (atm != 3) {
-            if (atm == 1) {
-                depositMoney(customer);
-            } else if (atm == 2) {
-                withdrawMoney(customer);
-            }
+            balanceModification(customer, atm);
             System.out.println(customerMessage());
             atm = input.nextInt();
+        }
+    }
+
+    private void balanceModification(Customer customer, int atm) {
+        if (atm == 1) {
+            depositMoney(customer);
+        } else if (atm == 2) {
+            withdrawMoney(customer);
         }
     }
 
