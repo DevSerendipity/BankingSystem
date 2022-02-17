@@ -6,12 +6,11 @@ import java.util.Scanner;
 public class BankingSystem {
     private final Scanner input = new Scanner(System.in);
     private final String userInput = input.nextLine();
+    private final ArrayList<Customer> customers = new ArrayList<>();
 
     public ArrayList<Customer> getCustomers() {
         return customers;
     }
-
-    private static final ArrayList<Customer> customers = new ArrayList<>();
 
     void getBankDetails() {
         boolean haveCustomer = false;
