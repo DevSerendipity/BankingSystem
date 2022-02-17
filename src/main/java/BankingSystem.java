@@ -14,20 +14,29 @@ public class BankingSystem {
 
     void getBankDetails() {
         boolean haveCustomer = false;
-        for (Customer value : customers) {
-            if (value.getName().equals(userInput)) {
-                haveCustomer = true;
-                bankActions(value);
-                System.out.println("Name : " + value.getName() + "\nBalance " + value.getBalance() + "$\nAccountID" +  new BigInteger(53, new Random()));
-            }
+        for (Customer customer : customers) {
+            haveCustomer = isCustomerPresent(haveCustomer, customer);
         }
         if(!haveCustomer){
             System.out.println("We don't have a customer with that name");
         }
     }
 
+    private boolean isCustomerPresent(boolean haveCustomer, Customer value) {
+        if (value.getName().equals(userInput)) {
+            haveCustomer = true;
+            bankActions(value);
+            customerDetails(value);
+        }
+        return haveCustomer;
+    }
+
+    private void customerDetails(Customer value) {
+        System.out.println("Name : " + value.getName() + "\nBalance " + value.getBalance() + "$\nAccountID" +  new BigInteger(53, new Random()));
+    }
+
     void bankActions(Customer customer) {
-        System.out.println("Hello " + customer.getName() + "\nIf you wish to deposit money press 1 \nIf you wish to withdraw money press 2\nTo exit press 3");
+        System.out.println("Hello " + customer.getName() + customerMessage());
         int atm = input.nextInt();
         while (atm != 3) {
             if (atm == 1) {
@@ -35,9 +44,13 @@ public class BankingSystem {
             } else if (atm == 2) {
                 withdrawMoney(customer);
             }
-            System.out.println("If you wish to deposit money press 1 \nIf you wish to withdraw money press 2\nTo exit press 3");
+            System.out.println(customerMessage());
             atm = input.nextInt();
         }
+    }
+
+    private String customerMessage() {
+        return "\nIf you wish to deposit money press 1 \nIf you wish to withdraw money press 2\nTo exit press 3";
     }
 
     private void withdrawMoney(Customer customer) {
@@ -59,9 +72,9 @@ public class BankingSystem {
         System.out.println("Your current balance is $" + customer.getBalance());
     }
 
-    private int balanceCondition(int balance, int i, String s) {
-        while (balance > i) {
-            System.out.println(s);
+    private int balanceCondition(int balance, int balanceLimit, String message) {
+        while (balance > balanceLimit) {
+            System.out.println(message);
             balance = input.nextInt();
         }
         return balance;
