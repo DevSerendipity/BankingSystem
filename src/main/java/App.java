@@ -16,8 +16,6 @@ public class App {
     }
 
     private static void getAllCustomers() {
-        for (Customer customer : bankingSystem.getCustomers()) {
-            System.out.println("Name : " + customer.getName() + "\nBalance " + customer.getBalance() + "$\nAccountID " + new BigInteger(53, new Random()));
-        }
+        bankingSystem.getCustomers().forEach(customer -> System.out.print("Name : " + customer.getName() + "\nBalance " + customer.getBalance() + "$\nAccountID " + new BigInteger(53, new Random())));
     }
 }
