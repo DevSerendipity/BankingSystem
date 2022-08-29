@@ -3,7 +3,7 @@ public class Customer {
     private final String name;
     private int balance;
 
-    public Customer(String name, int balance){
+    public Customer(String name, int balance) {
         this.name = name;
         this.balance = balance;
     }
