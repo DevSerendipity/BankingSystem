@@ -3,7 +3,7 @@ import java.util.*;
 
 public class BankingSystem {
     private final Scanner input = new Scanner(System.in);
-    private final String userInput = input.nextLine();
+    private String userInput = input.nextLine();
     private final ArrayList<Customer> customers = new ArrayList<>();
 
     public List<Customer> getCustomers() {
@@ -15,22 +15,21 @@ public class BankingSystem {
     }
 
     void getBankDetails() {
-        boolean hasCustomer = false;
-        for (Customer customer : customers) {
-            hasCustomer = isCustomerPresent(hasCustomer, customer);
-        }
+        boolean hasCustomer = customers.stream().anyMatch(this::isCustomerPresent);
         if(!hasCustomer){
             System.out.println("We don't have a customer with that name");
         }
+        System.out.println("Try again");
+        userInput = input.nextLine();
     }
 
-    private boolean isCustomerPresent(boolean haveCustomer, Customer value) {
+    private boolean isCustomerPresent( Customer value) {
         if (value.getName().equals(userInput)) {
-            haveCustomer = true;
             atmActions(value);
             customerDetails(value);
+            return true;
         }
-        return haveCustomer;
+        return false;
     }
 
     private void customerDetails(Customer value) {
