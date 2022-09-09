@@ -1,23 +1,25 @@
-import java.math.BigInteger;
-import java.util.Random;
+import customer.Customer;
+import customer.CustomerHandler;
+import customer.CustomerPrinter;
 
 public class App {
     private static final BankingSystem bankingSystem = new BankingSystem();
+    private static final CustomerHandler customerHandler = new CustomerHandler();
+    private static final BalanceHandler balanceHandler = new BalanceHandler();
+    private static final CustomerPrinter customerPrinter = new CustomerPrinter();
 
     public static void main(String[] args) {
-        addCustomer("Man");
-        addCustomer("Tom");
+        customerHandler.addCustomer(new Customer("Ok", 300));
+        customerHandler.addCustomer(new Customer("Man", 100));
+        customerHandler.addCustomer(new Customer("Tom", 200));
         bankingSystem.getBankDetails();
-        getAllCustomers();
+        balanceHandler.atmActions(getCustomer());
+        customerPrinter.customerDetails(getCustomer());
     }
 
-    private static void addCustomer(String customer) {
-        bankingSystem.add(new Customer(customer, 100));
+    private static Customer getCustomer() {
+        return customerHandler.getCustomers().stream().filter(
+                customer -> customer.getName().equals(bankingSystem.getUserName())).findAny().get();
     }
 
-    private static void getAllCustomers() {
-        bankingSystem.getCustomers().forEach(customer -> System.out.print(
-                "Name : " + customer.getName() + "\nBalance " + customer.getBalance() + "$\nAccountID "
-                        + new BigInteger(53, new Random())));
-    }
 }
