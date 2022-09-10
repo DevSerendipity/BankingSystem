@@ -1,31 +1,22 @@
 import customer.Customer;
 import customer.CustomerHandler;
-
-import java.util.Scanner;
+import customer.CustomerPrinter;
+import customer.CustomerValidator;
 
 public class BankingSystem {
-    CustomerHandler customerHandler = new CustomerHandler();
-    Scanner input = new Scanner(System.in);
-    private String userName;
+    private static final CustomerValidator customerValidator = new CustomerValidator();
+    private static final CustomerHandler customerHandler = new CustomerHandler();
+    private static final CustomerPrinter customerPrinter = new CustomerPrinter();
+    private static final ATMHandler atmHandler = new ATMHandler();
 
-    void getBankDetails() {
+    public static void main(String[] args) {
+        customerHandler.addCustomer(new Customer("Ok", 300));
+        customerHandler.addCustomer(new Customer("Man", 100));
+        customerHandler.addCustomer(new Customer("Tom", 200));
         System.out.println("Enter customer name ");
-        setUserName(input.nextLine());
-        if ( !isCustomerPresent(customerHandler.getCustomers().stream().filter(
-                customer -> customer.getName().equals(getUserName())).findAny().get()) ) {
-            System.out.println("We don't have a customer with that name");
-        }
-    }
-
-    private boolean isCustomerPresent(Customer value) {
-        return customerHandler.getCustomers().stream().anyMatch(customer -> customer.getName().equals(value.getName()));
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+        customerHandler.setUserName(customerHandler.getUserInput());
+        customerValidator.checkForCustomer(customerHandler.getUserName());
+        atmHandler.atmActions(customerHandler.getCustomer(customerHandler.getUserName()));
+        customerPrinter.printCustomerDetails(customerHandler.getCustomer(customerHandler.getUserName()));
     }
 }
