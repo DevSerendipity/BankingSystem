@@ -4,19 +4,9 @@ import customer.CustomerPrinter;
 import java.util.Scanner;
 
 public class BalanceHandler {
-    void atmActions(Customer customer) {
-        CustomerPrinter customerPrinter = new CustomerPrinter();
-        System.out.println("Hello " + customer.getName() + customerPrinter.customerMessage());
-        Scanner input = new Scanner(System.in);
-        int atm = input.nextInt();
-        while( atm != 3 ) {
-            balanceModification(customer, atm);
-            System.out.println(customerPrinter.customerMessage());
-            atm = input.nextInt();
-        }
-    }
 
-    private void balanceModification(Customer customer, int atm) {
+
+    protected void balanceModification(Customer customer, int atm) {
         if ( atm == 1 ) {
             depositMoney(customer);
         } else if ( atm == 2 ) {
