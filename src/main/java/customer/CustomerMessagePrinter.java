@@ -1,6 +1,6 @@
 package customer;
 
-public class CustomerPrinter {
+public class CustomerMessagePrinter {
 
     public String printCustomerMessage() {
         return "\nIf you wish to deposit money press 1\nIf you wish to withdraw money press 2\nTo exit press 3";

@@ -1,19 +1,19 @@
 import customer.Customer;
-import customer.CustomerPrinter;
+import customer.CustomerMessagePrinter;
 
 import java.util.Scanner;
 
 public class ATMHandler {
 
     void atmActions(Customer customer) {
-        CustomerPrinter customerPrinter = new CustomerPrinter();
+        CustomerMessagePrinter customerMessagePrinter = new CustomerMessagePrinter();
         BalanceHandler balanceHandler = new BalanceHandler();
-        System.out.println("Hello " + customer.getName() + customerPrinter.printCustomerMessage());
+        System.out.println("Hello " + customer.getName() + customerMessagePrinter.printCustomerMessage());
         Scanner input = new Scanner(System.in);
         int atm = input.nextInt();
-        while( atm != 3 ) {
+        while ( atm != 3 ) {
             balanceHandler.balanceModification(customer, atm);
-            System.out.println(customerPrinter.printCustomerMessage());
+            System.out.println(customerMessagePrinter.printCustomerMessage());
             atm = input.nextInt();
         }
     }

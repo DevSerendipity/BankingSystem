@@ -7,8 +7,8 @@ public class CustomerValidator {
         return customerHandler.getCustomers().stream().anyMatch(c -> c.getName().equals(customer.getName()));
     }
 
-    public void checkForCustomer(String userName) {
-        if ( !hasCustomer(customerHandler.getCustomer(userName)) ) {
+    public void checkForCustomer() {
+        if ( !hasCustomer(customerHandler.getCustomer()) ) {
             System.out.println("We don't have a customer with that name");
         }
     }
