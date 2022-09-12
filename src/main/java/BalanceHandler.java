@@ -25,10 +25,10 @@ public class BalanceHandler {
 
     private void depositMoney(Customer customer) {
         System.out.println("How much do you want to deposit?");
-        final double BALANCE_LIMIT = 20000;
+        final double balanceLimit = 20000;
         double deposit = inputHandler.getInputMoneyAmount();
-        deposit = balanceCondition(deposit, BALANCE_LIMIT,
-                                   "You can not add that much money at once. Add below $ " + BALANCE_LIMIT);
+        deposit = balanceCondition(deposit, balanceLimit,
+                                   "You can not add that much money at once. Add below $ " + balanceLimit);
         double addingToBalance = customer.getBalance() + deposit;
         customer.setBalance(addingToBalance);
         System.out.println("Your current balance is $" + customer.getBalance());
