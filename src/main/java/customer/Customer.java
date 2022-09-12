@@ -1,14 +1,12 @@
 package customer;
 
-import java.math.BigInteger;
-import java.util.Random;
+import java.util.UUID;
 
 public class Customer {
 
     private final String name;
-    private int balance;
-    private final BigInteger accountId = new BigInteger(53,
-                                                        new Random());
+    private final UUID accountId = UUID.randomUUID();
+    private double balance;
 
     public Customer(String name, int balance) {
         this.name = name;
@@ -19,15 +17,15 @@ public class Customer {
         return name;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    public BigInteger getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
