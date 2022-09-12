@@ -7,7 +7,7 @@ public class CustomerPrinter {
     }
 
     public void printCustomerDetails(Customer value) {
-        System.out.format("Name: %s\nBalance: $%d\nAccountID: %d", value.getName(), value.getBalance(),
+        System.out.format("Name: %s\nBalance: $%.2f\nAccountID: %s", value.getName(), value.getBalance(),
                           value.getAccountId());
     }
 
